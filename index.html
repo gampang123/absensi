@@ -4,181 +4,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Absensi</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+    <title>Manajemen Presensi</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #ccc;
-            margin: 0;
-            padding: 0;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        
-        button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        
-        button:hover {
-            background-color: #0056b3;
+            background-image: url('2.jpg');
+            /* Ganti 'nama_file_gambar.jpg' dengan path atau URL gambar Anda */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            background-color: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
         th,
         td {
-            border: 1px solid #ddd;
-            padding: 12px;
+            border: 1px solid #dddddd;
             text-align: left;
+            padding: 8px;
         }
         
         th {
             background-color: #f2f2f2;
+        }
+        
+        .add-button {
+            margin-bottom: 10px;
+        }
+        
+        #input-form {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+        /* Additional CSS for enhancing the appearance */
+        /* Style for the input fields */
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #1fd6ff;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        /* Style for the buttons */
+        
+        button {
+            background-color: #003502;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        /* Style for the form */
+        
+        #input-form {
+            width: 300px;
+            background-color: #0088be;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Style for the table */
+        
+        #presensi-table {
+            margin-top: 20px;
+        }
+        /* Style for the header */
+        
+        h2 {
             color: #333;
         }
+        /* Style for the buttons */
         
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        
-        tr:hover {
-            background-color: #ddd;
-        }
-        
-        button.delete-button {
-            background-color: #dc3545;
-            color: #fff;
+        .add-button {
+            background-color: #008CBA;
+            color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
             cursor: pointer;
             border-radius: 4px;
-            font-size: 14px;
         }
         
-        button.delete-button:hover {
-            background-color: #c82333;
-        }
-        /* Media query untuk layar kecil */
-        
-        @media only screen and (max-width: 600px) {
-            h2 {
-                font-size: 1.5em;
-            }
+        .add-button:hover {
+            background-color: #005f6b;
         }
     </style>
 </head>
 
 <body>
-    <div>
-        <h2>RESPANZA - Respanza Iftar Ramadhan Party</h2>
-    </div>
-    <br>
-    <br>
-    <div>
-        <button onclick="showInputForm()">Tambah Absensi</button>
-        <table id="absensiTable">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Nama</th>
-                    <th>Asal</th>
-                    <th>Nomor HP</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody id="absensiBody">
-            </tbody>
-        </table>
+    <h2 style="text-align: center; color:white;">RESPANZA IFTAR PARTY</h2>
+    <button onclick="tampilkanForm()" class="add-button">Tambah Presensi</button>
+
+    <div id="input-form">
+        <h3>Input Presensi</h3>
+        <form id="presensi-form">
+            <label for="nama">Nama:</label><br>
+            <input type="text" id="nama" name="nama"><br>
+            <label for="asal">Asal:</label><br>
+            <input type="text" id="asal" name="asal"><br>
+            <label for="nomorHP">Nomor HP:</label><br>
+            <input type="text" id="nomorHP" name="nomorHP"><br><br>
+            <button type="submit">Simpan</button>
+            <button type="button" onclick="sembunyikanForm()">Batal</button>
+        </form>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <table id="presensi-table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Asal</th>
+                <th>Nomor HP</th>
+                <th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="presensi-body">
+            <!-- Data akan ditambahkan secara dinamis di sini -->
+        </tbody>
+    </table>
+
     <script>
-        // Function to show input form using SweetAlert
-        function showInputForm() {
-            swal("Masukkan Data Absensi:", {
-                content: "input",
-                buttons: {
-                    cancel: "Batal",
-                    confirm: "Absen",
-                },
-            }).then((value) => {
-                if (value) {
-                    const inputArray = value.split(';'); // Memisahkan input menjadi array
-                    if (inputArray.length === 3) { // Pastikan input terdiri dari 3 bagian
-                        const absensiData = JSON.parse(localStorage.getItem('absensi')) || [];
-                        const newAbsensi = {
-                            nama: inputArray[0],
-                            asal: inputArray[1],
-                            nomorHP: inputArray[2]
-                        };
-                        absensiData.push(newAbsensi);
-                        localStorage.setItem('absensi', JSON.stringify(absensiData));
-                        showAbsensi();
-                    } else {
-                        swal("Mohon masukkan data dengan format Nama;Asal;Nomor HP");
-                    }
-                }
-            });
+        // Mengecek apakah local storage tersedia di browser
+        function isLocalStorageAvailable() {
+            try {
+                localStorage.setItem('test', 'test');
+                localStorage.removeItem('test');
+                return true;
+            } catch (e) {
+                return false;
+            }
         }
 
-        // Function to show existing attendance
-        function showAbsensi() {
-            const absensiData = JSON.parse(localStorage.getItem('absensi')) || [];
-            const absensiBody = document.getElementById('absensiBody');
-            absensiBody.innerHTML = '';
-            absensiData.forEach((absensi, index) => {
+        // Mendapatkan data presensi dari local storage
+        function getPresensiData() {
+            return JSON.parse(localStorage.getItem('presensi')) || [];
+        }
+
+        // Menyimpan data presensi ke local storage
+        function setPresensiData(data) {
+            localStorage.setItem('presensi', JSON.stringify(data));
+        }
+
+        // Menampilkan data presensi dari local storage ke tabel
+        function showPresensi() {
+            const presensiTable = document.getElementById('presensi-body');
+            presensiTable.innerHTML = '';
+            const presensiData = getPresensiData();
+
+            presensiData.forEach((presensi, index) => {
                 const row = `<tr>
-                                <td>${index + 1}</td>
-                                <td>${absensi.nama}</td>
-                                <td>${absensi.asal}</td>
-                                <td>${absensi.nomorHP}</td>
-                                <td><button class="delete-button" onclick="hapusAbsensi(${index})">Hapus</button></td>
-                            </tr>`;
-                absensiBody.innerHTML += row;
+        <td>${index + 1}</td>
+        <td>${presensi.nama}</td>
+        <td>${presensi.asal}</td>
+        <td>${presensi.nomorHP}</td>
+        <td><button onclick="hapusPresensi(${index})">Hapus</button></td>
+      </tr>`;
+                presensiTable.innerHTML += row;
             });
         }
 
-        // Function to delete attendance
-        function hapusAbsensi(index) {
-            swal({
-                title: "Anda yakin?",
-                text: "Data absensi akan dihapus!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    const absensiData = JSON.parse(localStorage.getItem('absensi')) || [];
-                    absensiData.splice(index, 1);
-                    localStorage.setItem('absensi', JSON.stringify(absensiData));
-                    showAbsensi();
-                    swal("Data absensi berhasil dihapus!", {
-                        icon: "success",
-                    });
-                }
-            });
+        // Menampilkan form input presensi
+        function tampilkanForm() {
+            document.getElementById('input-form').style.display = 'block';
         }
 
-        // Initially show existing attendance
-        showAbsensi();
+        // Menyembunyikan form input presensi
+        function sembunyikanForm() {
+            document.getElementById('input-form').style.display = 'none';
+            document.getElementById('presensi-form').reset();
+        }
+
+        // Menambahkan presensi baru
+        function tambahPresensi(event) {
+            event.preventDefault();
+            const nama = document.getElementById('nama').value;
+            const asal = document.getElementById('asal').value;
+            const nomorHP = document.getElementById('nomorHP').value;
+
+            if (nama && asal && nomorHP) {
+                const presensiData = getPresensiData();
+                const newData = {
+                    nama,
+                    asal,
+                    nomorHP
+                };
+                presensiData.push(newData);
+                setPresensiData(presensiData);
+                showPresensi();
+                sembunyikanForm();
+            } else {
+                alert('Silakan isi semua kolom.');
+            }
+        }
+
+        // Menghapus presensi berdasarkan index
+        function hapusPresensi(index) {
+            const presensiData = getPresensiData();
+            presensiData.splice(index, 1);
+            setPresensiData(presensiData);
+            showPresensi();
+        }
+
+        // Menampilkan data presensi saat halaman dimuat
+        window.onload = function() {
+            if (isLocalStorageAvailable()) {
+                showPresensi();
+            } else {
+                alert('Maaf, browser Anda tidak mendukung local storage.');
+            }
+        };
+
+        // Menambahkan event listener untuk form input presensi
+        document.getElementById('presensi-form').addEventListener('submit', tambahPresensi);
     </script>
 
 </body>
